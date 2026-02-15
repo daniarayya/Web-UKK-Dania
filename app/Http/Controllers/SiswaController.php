@@ -21,7 +21,6 @@ class SiswaController extends Controller
 
         $siswaQuery = Siswa::query();
 
-        // Live search functionality
         if ($search) {
             $siswaQuery->where(function ($query) use ($search) {
                 $query->where('nisn', 'like', "%{$search}%")
@@ -31,26 +30,23 @@ class SiswaController extends Controller
             });
         }
 
-        // Order by created_at DESC agar data terbaru di atas
         $siswaQuery->orderBy('created_at', 'desc');
 
-        // Pagination with 5 items per page
         $siswa = $siswaQuery->paginate(5);
 
-        // Jika request AJAX, kembalikan JSON untuk live search
         if ($request->ajax()) {
             $siswaData = $siswa->map(function ($item) {
                 $user = User::where('nisn', $item->nisn)->first();
                 $item->user = $user ? [
                     'username' => $user->username,
-                    'id_user' => $user->id_user
+                    'id_user'  => $user->id_user
                 ] : null;
                 return $item;
             });
 
             return response()->json([
                 'success' => true,
-                'siswa' => $siswa
+                'siswa'   => $siswa
             ]);
         }
 
@@ -60,39 +56,41 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nisn' => 'required|size:10|unique:siswas,nisn',
-            'nama' => 'required|string|max:100',
-            'kelas' => 'required|string|max:20',
-            'jurusan' => 'required|string|max:50',
+            'nisn'                => 'required|size:10|unique:siswas,nisn',
+            'nama'                => 'required|string|max:100',
+            'kelas'               => 'required|in:10,11,12',           // sesuai ENUM
+            'jurusan'             => 'required|in:RPL,FKK,BDP',        // sesuai ENUM
             'create_user_account' => 'nullable|boolean'
         ]);
 
         $siswa = Siswa::create($request->only('nisn', 'nama', 'kelas', 'jurusan'));
 
-        if ($request->has('create_user_account') && $request->create_user_account == '1') {
+        if ($request->boolean('create_user_account')) {
             $userCreated = $this->createUserAccount($siswa);
 
             if (!$userCreated) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Data siswa berhasil ditambahkan, tetapi gagal membuat akun pengguna'
-                ]);
+                ], 500);
             }
+        }
+
+        $message = 'Data siswa berhasil ditambahkan';
+        if ($request->boolean('create_user_account')) {
+            $message .= ' dan akun pengguna berhasil dibuat';
         }
 
         return response()->json([
             'success' => true,
-            'message' => 'Data siswa berhasil ditambahkan' .
-                ($request->has('create_user_account') && $request->create_user_account == '1'
-                    ? ' dan akun pengguna berhasil dibuat'
-                    : '')
+            'message' => $message
         ]);
     }
 
     private function createUserAccount(Siswa $siswa)
     {
         try {
-            $namaDepan = Str::of($siswa->nama)->explode(' ')->first();
+            $namaDepan = Str::of($siswa->nama)->explode(' ')->first() ?? 'siswa';
 
             $username = Str::lower(Str::slug($namaDepan, ''));
 
@@ -103,14 +101,14 @@ class SiswaController extends Controller
                 $counter++;
             }
 
-            $password = $siswa->nisn;
+            $password = $siswa->nisn; // password = nisn (bisa diganti nanti)
 
             User::create([
-                'nama' => $siswa->nama,
+                'nama'     => $siswa->nama,
                 'username' => $username,
                 'password' => Hash::make($password),
-                'role' => 'siswa',
-                'nisn' => $siswa->nisn
+                'role'     => 'siswa',
+                'nisn'     => $siswa->nisn
             ]);
 
             return true;
@@ -124,19 +122,19 @@ class SiswaController extends Controller
     public function update(Request $request, $nisn)
     {
         $request->validate([
-            'nama' => 'required|string|max:100',
-            'kelas' => 'required|string|max:20',
-            'jurusan' => 'required|string|max:50',
+            'nama'    => 'required|string|max:100',
+            'kelas'   => 'required|in:10,11,12',      // sesuai ENUM
+            'jurusan' => 'required|in:RPL,FKK,BDP',   // sesuai ENUM
         ]);
 
         $siswa = Siswa::where('nisn', $nisn)->firstOrFail();
 
         $siswa->update($request->only('nama', 'kelas', 'jurusan'));
 
+        // Sync nama ke tabel users jika ada
         $user = User::where('nisn', $nisn)->first();
         if ($user) {
-            $user->nama = $request->nama;
-            $user->save();
+            $user->update(['nama' => $request->nama]);
         }
 
         return response()->json([
@@ -149,9 +147,7 @@ class SiswaController extends Controller
     {
         try {
             User::where('nisn', $nisn)->delete();
-
-            $siswa = Siswa::where('nisn', $nisn)->firstOrFail();
-            $siswa->delete();
+            Siswa::where('nisn', $nisn)->delete();
 
             return response()->json([
                 'success' => true,
@@ -159,7 +155,6 @@ class SiswaController extends Controller
             ]);
         } catch (\Exception $e) {
             \Log::error('Gagal menghapus siswa: ' . $e->getMessage());
-
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat menghapus data'
@@ -175,13 +170,6 @@ class SiswaController extends Controller
 
         $siswa = Siswa::where('nisn', $request->nisn)->first();
 
-        if (!$siswa) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Siswa tidak ditemukan'
-            ], 404);
-        }
-
         if (User::where('nisn', $request->nisn)->exists()) {
             $user = User::where('nisn', $request->nisn)->first();
             return response()->json([
@@ -195,21 +183,18 @@ class SiswaController extends Controller
         if ($created) {
             $user = User::where('nisn', $request->nisn)->first();
             return response()->json([
-                'success' => true,
-                'message' => 'Akun berhasil dibuat',
+                'success'  => true,
+                'message'  => 'Akun berhasil dibuat',
                 'username' => $user->username
             ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal membuat akun'
-            ]);
         }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal membuat akun'
+        ], 500);
     }
 
-    /**
-     * Download template Excel untuk import siswa
-     */
     public function downloadTemplate()
     {
         $spreadsheet = new Spreadsheet();
@@ -220,7 +205,7 @@ class SiswaController extends Controller
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        $sheet->setCellValue('A2', 'Isi data siswa sesuai format di bawah. Jangan ubah nama kolom!');
+        $sheet->setCellValue('A2', 'Isi data siswa sesuai format. Jangan ubah nama kolom!');
         $sheet->mergeCells('A2:D2');
         $sheet->getStyle('A2')->getFont()->setItalic(true);
         $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
@@ -265,7 +250,7 @@ class SiswaController extends Controller
         $sheet->getStyle('A9')->getFont()->setBold(true);
 
         $keterangan = [
-            ['NISN', 'Harus 10 digit angka, tidak boleh duplikat'],
+            ['NISN', 'Harus 10 digit angka, unik'],
             ['KELAS', 'Hanya boleh: 10, 11, atau 12'],
             ['JURUSAN', 'Hanya boleh: RPL, FKK, atau BDP'],
         ];
@@ -290,11 +275,6 @@ class SiswaController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
-        header('Cache-Control: max-age=1');
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-        header('Cache-Control: cache, must-revalidate');
-        header('Pragma: public');
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
@@ -304,56 +284,49 @@ class SiswaController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv|max:5120',
+            'file'            => 'required|mimes:xlsx,xls,csv|max:5120',
             'create_accounts' => 'nullable|boolean'
         ]);
 
         try {
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($request->file('file')->getRealPath());
+            $spreadsheet = IOFactory::load($request->file('file')->getRealPath());
             $sheet = $spreadsheet->getActiveSheet();
             $rows = $sheet->toArray(null, true, true, false);
 
             if (count($rows) < 2) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'File Excel kosong.'
+                    'message' => 'File Excel kosong atau tidak valid.'
                 ], 422);
             }
 
-            // HEADER YANG DIPERBOLEHKAN
             $allowedHeaders = [
-                'nisn' => 'nisn',
-
-                'nama' => 'nama',
+                'nisn'         => 'nisn',
+                'nama'         => 'nama',
                 'nama lengkap' => 'nama',
                 'nama_lengkap' => 'nama',
-                'namalengkap' => 'nama',
-
-                'kelas' => 'kelas',
-
-                'jurusan' => 'jurusan',
+                'namalengkap'  => 'nama',
+                'kelas'        => 'kelas',
+                'jurusan'      => 'jurusan',
             ];
 
-            // fungsi normalisasi header excel
             $normalize = function ($value) {
                 $value = trim((string) $value);
                 $value = strtolower($value);
-                $value = preg_replace('/\s+/', ' ', $value); // rapihin spasi
-                $value = preg_replace('/[^a-z0-9 _]/', '', $value); // buang simbol
+                $value = preg_replace('/\s+/', ' ', $value);
+                $value = preg_replace('/[^a-z0-9 ]/', '', $value);
                 return trim($value);
             };
 
             $headerRowIndex = null;
             $headerMapping = [];
 
-            // DETEKSI HEADER (cari baris yang punya minimal 2 kolom cocok)
             foreach ($rows as $index => $row) {
                 $tempMapping = [];
                 $matchCount = 0;
 
                 foreach ($row as $colIndex => $cell) {
                     $headerName = $normalize($cell);
-
                     if (isset($allowedHeaders[$headerName])) {
                         $key = $allowedHeaders[$headerName];
                         $tempMapping[$key] = $colIndex;
@@ -361,7 +334,7 @@ class SiswaController extends Controller
                     }
                 }
 
-                if ($matchCount >= 2) {
+                if ($matchCount >= 3) {  // minimal 3 kolom cocok agar lebih yakin
                     $headerRowIndex = $index;
                     $headerMapping = $tempMapping;
                     break;
@@ -371,46 +344,41 @@ class SiswaController extends Controller
             if ($headerRowIndex === null) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Header tidak ditemukan. Pastikan file sesuai template (NISN, NAMA LENGKAP, KELAS, JURUSAN).'
+                    'message' => 'Header tidak ditemukan. Pastikan ada kolom NISN, NAMA LENGKAP, KELAS, JURUSAN.'
                 ], 422);
             }
 
-            // pastikan kolom wajib ada
             $required = ['nisn', 'nama', 'kelas', 'jurusan'];
             foreach ($required as $col) {
                 if (!isset($headerMapping[$col])) {
                     return response()->json([
                         'success' => false,
-                        'message' => "Kolom '{$col}' tidak ditemukan. Pastikan file sesuai template."
+                        'message' => "Kolom '$col' wajib ada."
                     ], 422);
                 }
             }
 
             $importedCount = 0;
-            $skippedCount = 0;
-            $errors = [];
+            $skippedCount  = 0;
+            $errors        = [];
 
-            // mulai baca data setelah header
             for ($i = $headerRowIndex + 1; $i < count($rows); $i++) {
                 $row = $rows[$i];
 
-                // stop kalau sudah masuk ke bagian KETERANGAN
                 $firstCell = strtolower(trim((string)($row[0] ?? '')));
                 if ($firstCell === 'keterangan:' || $firstCell === 'keterangan') {
                     break;
                 }
 
-                // skip baris kosong
                 if (empty(array_filter($row, fn($v) => $v !== null && trim((string)$v) !== ''))) {
                     continue;
                 }
 
-                $nisn = trim((string)($row[$headerMapping['nisn']] ?? ''));
-                $nama = trim((string)($row[$headerMapping['nama']] ?? ''));
-                $kelas = trim((string)($row[$headerMapping['kelas']] ?? ''));
+                $nisn    = trim((string)($row[$headerMapping['nisn']] ?? ''));
+                $nama    = trim((string)($row[$headerMapping['nama']] ?? ''));
+                $kelas   = trim((string)($row[$headerMapping['kelas']] ?? ''));
                 $jurusan = strtoupper(trim((string)($row[$headerMapping['jurusan']] ?? '')));
 
-                // validasi manual
                 $validationErrors = $this->validateImportRow($nisn, $nama, $kelas, $jurusan);
 
                 if (!empty($validationErrors)) {
@@ -420,15 +388,14 @@ class SiswaController extends Controller
                 }
 
                 try {
-                    \App\Models\Siswa::updateOrCreate(
+                    Siswa::updateOrCreate(
                         ['nisn' => $nisn],
                         [
-                            'nama' => $nama,
-                            'kelas' => $kelas,
+                            'nama'    => $nama,
+                            'kelas'   => $kelas,
                             'jurusan' => $jurusan
                         ]
                     );
-
                     $importedCount++;
                 } catch (\Exception $e) {
                     $skippedCount++;
@@ -444,16 +411,15 @@ class SiswaController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => $message,
-                'data' => [
+                'data'    => [
                     'imported' => $importedCount,
-                    'skipped' => $skippedCount,
-                    'errors' => array_slice($errors, 0, 10)
+                    'skipped'  => $skippedCount,
+                    'errors'   => array_slice($errors, 0, 10)
                 ]
             ]);
 
         } catch (\Exception $e) {
             \Log::error("Import siswa error: " . $e->getMessage());
-
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat import: ' . $e->getMessage()
@@ -465,36 +431,36 @@ class SiswaController extends Controller
     {
         $errors = [];
 
-        // Validasi NISN
+        // NISN
         if (empty($nisn)) {
             $errors[] = 'NISN kosong';
         } elseif (strlen($nisn) !== 10) {
-            $errors[] = 'NISN harus 10 digit';
-        } elseif (!is_numeric($nisn)) {
-            $errors[] = 'NISN harus angka';
+            $errors[] = 'NISN harus tepat 10 digit';
+        } elseif (!ctype_digit($nisn)) {
+            $errors[] = 'NISN harus berupa angka';
         } elseif (Siswa::where('nisn', $nisn)->exists()) {
             $errors[] = 'NISN sudah terdaftar';
         }
 
-        // Validasi Nama
+        // Nama
         if (empty($nama)) {
             $errors[] = 'Nama kosong';
         } elseif (strlen($nama) > 100) {
-            $errors[] = 'Nama terlalu panjang (max 100 karakter)';
+            $errors[] = 'Nama maksimal 100 karakter';
         }
 
-        // Validasi Kelas
+        // Kelas (sesuai ENUM)
         if (empty($kelas)) {
             $errors[] = 'Kelas kosong';
-        } elseif (!in_array($kelas, ['10', '11', '12'])) {
-            $errors[] = 'Kelas tidak valid (harus 10, 11, atau 12)';
+        } elseif (!in_array($kelas, ['10', '11', '12'], true)) {
+            $errors[] = 'Kelas harus 10, 11, atau 12';
         }
 
-        // Validasi Jurusan
+        // Jurusan (sesuai ENUM)
         if (empty($jurusan)) {
             $errors[] = 'Jurusan kosong';
-        } elseif (!in_array($jurusan, ['RPL', 'FKK', 'BDP'])) {
-            $errors[] = 'Jurusan tidak valid (harus RPL, FKK, atau BDP)';
+        } elseif (!in_array($jurusan, ['RPL', 'FKK', 'BDP'], true)) {
+            $errors[] = 'Jurusan harus RPL, FKK, atau BDP';
         }
 
         return $errors;

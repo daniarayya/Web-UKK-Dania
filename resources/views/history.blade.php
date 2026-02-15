@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUARAKITA</title>
+    <title>SUARAKITA - Aspirasi</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -74,6 +74,9 @@
                     backgroundImage: {
                         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+                    },
+                    screens: {
+                        'xs': '475px',
                     }
                 }
             }
@@ -141,13 +144,22 @@
         
         /* Status badges */
         .status-badge {
-            padding: 0.4rem 1.2rem;
+            padding: 0.3rem 1rem;
             border-radius: 9999px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        @media (min-width: 640px) {
+            .status-badge {
+                padding: 0.4rem 1.2rem;
+                font-size: 0.8rem;
+                gap: 6px;
+            }
         }
         
         .status-menunggu {
@@ -191,9 +203,15 @@
         .feedback-bubble {
             background: #f8fafc;
             border-radius: 1rem;
-            padding: 1rem;
+            padding: 0.8rem;
             border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 640px) {
+            .feedback-bubble {
+                padding: 1rem;
+            }
         }
         
         .feedback-bubble:hover {
@@ -208,12 +226,19 @@
         
         /* Logo styling */
         .logo-container {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .logo-container {
+                width: 48px;
+                height: 48px;
+            }
         }
         
         .logo-img {
@@ -233,7 +258,15 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 8px 0;
+            padding: 6px 0;
+            font-size: 0.85rem;
+        }
+        
+        @media (min-width: 640px) {
+            .show-more-btn {
+                padding: 8px 0;
+                font-size: 0.9rem;
+            }
         }
         
         .show-more-btn:hover {
@@ -245,14 +278,21 @@
         .info-badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.5rem 1rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 9999px;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             font-weight: 500;
             background: #f8fafc;
             color: #4b5563;
             border: 1px solid #e5e7eb;
             transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 640px) {
+            .info-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
         }
         
         .info-badge:hover {
@@ -269,15 +309,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 40px;
-            height: 40px;
-            padding: 0 12px;
-            border-radius: 10px;
+            min-width: 32px;
+            height: 32px;
+            padding: 0 8px;
+            border-radius: 8px;
             background: white;
             color: #4b5563;
             font-weight: 500;
+            font-size: 0.8rem;
             border: 1px solid #e5e7eb;
             transition: all 0.2s ease;
+        }
+        
+        @media (min-width: 640px) {
+            .pagination-link {
+                min-width: 40px;
+                height: 40px;
+                padding: 0 12px;
+                border-radius: 10px;
+                font-size: 0.9rem;
+            }
         }
         
         .pagination-link:hover {
@@ -310,23 +361,40 @@
         
         /* Login required badge */
         .login-required-badge {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: #6b7280;
-            margin-left: 8px;
+            margin-left: 4px;
             display: inline-flex;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
+        }
+        
+        @media (min-width: 640px) {
+            .login-required-badge {
+                font-size: 0.7rem;
+                margin-left: 8px;
+                gap: 3px;
+            }
         }
         
         /* Badge warna berdasarkan role */
         .role-badge {
-            padding: 0.25rem 0.75rem;
+            padding: 0.15rem 0.5rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
+            font-size: 0.6rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
+            white-space: nowrap;
+        }
+        
+        @media (min-width: 640px) {
+            .role-badge {
+                padding: 0.25rem 0.75rem;
+                font-size: 0.75rem;
+                gap: 4px;
+            }
         }
         
         .role-admin {
@@ -335,34 +403,105 @@
             border: 1px solid #93c5fd;
         }
         
+        .role-kepsek {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+        
         .hidden-detail-message {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border: 1px solid #fcd34d;
             border-radius: 1rem;
-            padding: 1.5rem;
-            margin: 1rem 0;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        
+        @media (min-width: 640px) {
+            .hidden-detail-message {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
         }
         
         .warning-message {
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
             border: 1px solid #fde68a;
             border-radius: 1rem;
-            padding: 1.5rem;
-            margin: 1rem 0;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        
+        @media (min-width: 640px) {
+            .warning-message {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+        }
+        
+        /* Responsive navbar adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .text-4xl {
+                font-size: 2rem;
+            }
+            
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+            
+            .pulse-dot {
+                width: 6px;
+                height: 6px;
+            }
+        }
+        
+        /* User profile in navbar */
+        .user-profile-btn {
+            padding: 0.4rem 0.8rem;
+        }
+        
+        @media (min-width: 640px) {
+            .user-profile-btn {
+                padding: 0.5rem 1rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .user-profile-btn {
+                padding: 0.75rem 1.25rem;
+            }
+        }
+        
+        /* Feedback avatar */
+        .feedback-avatar {
+            width: 32px;
+            height: 32px;
+        }
+        
+        @media (min-width: 640px) {
+            .feedback-avatar {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
 <body class="font-inter bg-light text-dark">
     @include('auth')
     
-    <!-- Header & Navbar -->
+    <!-- Header & Navbar - Responsif -->
     <header class="sticky top-0 z-50">
-        <nav class="glass-effect py-4 shadow-lg">
-            <div class="container mx-auto px-6">
-                <div class="flex justify-between items-center">
+        <nav class="glass-effect py-3 md:py-4 shadow-lg">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="flex flex-col sm:flex-row justify-between items-center">
                     <!-- Logo -->
-                    <div class="flex items-center space-x-3">
-                        <a href="{{ route('home') }}" class="flex items-center space-x-3 no-underline">
+                    <div class="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-0">
+                        <a href="{{ route('home') }}" class="flex items-center space-x-2 sm:space-x-3 no-underline">
                             <div class="relative">
                                 <div class="absolute -inset-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full blur opacity-30"></div>
                                 <div class="relative bg-white p-1 rounded-full">
@@ -373,48 +512,50 @@
                                 </div>
                             </div>
                             <div>
-                                <h1 class="text-2xl font-poppins font-bold">
+                                <h1 class="text-lg sm:text-xl md:text-2xl font-poppins font-bold">
                                     <span class="gradient-text">SUARAKITA</span>
                                 </h1>
                                 <div class="flex items-center space-x-1">
                                     <div class="pulse-dot"></div>
-                                    <p class="text-xs text-gray-600">Dari Kita, Oleh Kita, Untuk SKAMASKDA</p>
+                                    <p class="text-[8px] sm:text-xs text-gray-600 truncate max-w-[120px] sm:max-w-none">
+                                        Dari Kita, Untuk SKAMASKDA
+                                    </p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     
-                    <div class="flex items-center space-x-8">
+                    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-8">
                         <a href="{{ route('home') }}"
                         class="{{ request()->routeIs('home') 
                                 ? 'text-primary-600 font-semibold border-b-2 border-primary-500' 
-                                : 'text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200' }}">
-                            <i class="fas fa-home mr-2"></i>Beranda
+                                : 'text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200' }} text-xs sm:text-sm md:text-base">
+                            <i class="fas fa-home mr-1 sm:mr-2"></i><span class="hidden xs:inline">Beranda</span>
                         </a>
 
                         <a href="{{ route('history.index') }}"
                         class="{{ request()->routeIs('history.*') 
                                 ? 'text-primary-600 font-semibold border-b-2 border-primary-500' 
-                                : 'text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200' }}">
-                            <i class="fas fa-comment-alt mr-2"></i>Aspirasi
+                                : 'text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200' }} text-xs sm:text-sm md:text-base">
+                            <i class="fas fa-comment-alt mr-1 sm:mr-2"></i><span class="hidden xs:inline">Aspirasi</span>
                         </a>
 
                         @auth
                             <!-- User Profile Dropdown -->
                             <div class="relative">
-                                <button id="userMenuBtn" class="flex items-center space-x-3 px-5 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg">
+                                <button id="userMenuBtn" class="user-profile-btn flex items-center space-x-1 sm:space-x-2 md:space-x-3 px-2 sm:px-3 md:px-5 py-1.5 sm:py-2 md:py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg text-xs sm:text-sm">
                                     <div class="flex flex-col items-center justify-center">
-                                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-1">
-                                            <i class="fas fa-user text-sm"></i>
+                                        <div class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-full bg-white/20 flex items-center justify-center mb-0.5 sm:mb-1">
+                                            <i class="fas fa-user text-[0.5rem] sm:text-xs md:text-sm"></i>
                                         </div>
-                                        <span class="text-xs font-normal">{{ Str::limit(auth()->user()->username, 12) }}</span>
+                                        <span class="text-[0.45rem] sm:text-[0.65rem] md:text-xs font-normal">{{ Str::limit(auth()->user()->username, 8) }}</span>
                                     </div>
-                                    <i class="fas fa-chevron-down text-xs"></i>
+                                    <i class="fas fa-chevron-down text-[0.5rem] sm:text-xs"></i>
                                 </button>
                                 
                                 <!-- Dropdown Menu -->
-                                <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 hidden">
-                                    <div class="py-2">
+                                <div id="userMenu" class="absolute right-0 mt-2 w-36 sm:w-40 md:w-48 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 hidden">
+                                    <div class="py-1 md:py-2">
                                         @php
                                             $role = auth()->user()->role;
                                             $dashboardRoute = match($role) {
@@ -425,16 +566,16 @@
                                         @endphp
 
                                         @if($dashboardRoute)
-                                            <a href="{{ route($dashboardRoute) }}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition duration-150">
-                                                <i class="fas fa-tachometer-alt text-gray-500 mr-3"></i>
+                                            <a href="{{ route($dashboardRoute) }}" class="flex items-center px-3 md:px-4 py-2 md:py-3 text-gray-700 hover:bg-gray-50 transition duration-150 text-xs md:text-sm">
+                                                <i class="fas fa-tachometer-alt text-gray-500 mr-2 md:mr-3 text-xs md:text-sm"></i>
                                                 <span>Dashboard</span>
                                             </a>
                                         @endif
 
                                         <form method="POST" action="{{ route('auth.logout') }}" class="@if(in_array(auth()->user()->role, ['admin', 'kepsek'])) border-t border-gray-100 @endif">
                                             @csrf
-                                            <button type="submit" class="w-full text-left flex items-center px-4 py-3 text-red-600 hover:bg-red-50 transition duration-150">
-                                                <i class="fas fa-sign-out-alt mr-3"></i>
+                                            <button type="submit" class="w-full text-left flex items-center px-3 md:px-4 py-2 md:py-3 text-red-600 hover:bg-red-50 transition duration-150 text-xs md:text-sm">
+                                                <i class="fas fa-sign-out-alt mr-2 md:mr-3 text-xs md:text-sm"></i>
                                                 <span>Logout</span>
                                             </button>
                                         </form>
@@ -442,9 +583,9 @@
                                 </div>
                             </div>
                         @else
-                            <button id="openLoginModal" class="flex items-center space-x-2 px-5 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Login</span>
+                            <button id="openLoginModal" class="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 md:px-5 py-1.5 sm:py-2 md:py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg text-xs sm:text-sm md:text-base">
+                                <i class="fas fa-sign-in-alt text-xs sm:text-sm"></i>
+                                <span class="hidden xs:inline">Login</span>
                             </button>
                         @endauth
                     </div>
@@ -454,27 +595,27 @@
     </header>
 
     <!-- Main Content -->
-    <main class="py-8 bg-gradient-to-b from-white to-gray-50/50">
-        <div class="container mx-auto px-6">
+    <main class="py-6 sm:py-8 bg-gradient-to-b from-white to-gray-50/50">
+        <div class="container mx-auto px-4 sm:px-6">
             <!-- Header Section -->
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 text-primary-700 font-medium mb-4">
-                    <i class="fas fa-comments mr-2"></i>
+            <div class="text-center mb-6 sm:mb-8 md:mb-12">
+                <div class="inline-flex items-center px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 text-primary-700 font-medium mb-2 sm:mb-3 md:mb-4 text-xs sm:text-sm">
+                    <i class="fas fa-comments mr-1 sm:mr-2"></i>
                     Platform Aspirasi
                 </div>
                 
-                <h1 class="text-4xl md:text-5xl font-poppins font-bold mb-6">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-poppins font-bold mb-3 sm:mb-4 md:mb-6">
                     <span class="gradient-text">Riwayat Aspirasi</span>
                 </h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                <p class="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto px-2">
                     Lihat semua aspirasi yang telah dikirimkan oleh siswa. Pantau perkembangan dan berikan masukan untuk perbaikan sekolah.
                 </p>
             </div>
 
             @if(session('success'))
                 <div id="success-alert"
-                    class="mb-6 p-4 rounded-xl bg-green-100 border-l-4 border-green-500 text-green-700 shadow-md flex items-center space-x-3 transition-all duration-500">
-                    <i class="fas fa-check-circle text-xl"></i>
+                    class="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl bg-green-100 border-l-4 border-green-500 text-green-700 shadow-md flex items-center space-x-2 sm:space-x-3 transition-all duration-500 text-sm sm:text-base">
+                    <i class="fas fa-check-circle text-lg sm:text-xl"></i>
                     <span class="font-semibold">
                         {{ session('success') }}
                     </span>
@@ -482,74 +623,74 @@
             @endif
 
             <!-- Search Bar -->
-            <div class="mb-8">
+            <div class="mb-6 sm:mb-8">
                 <div class="max-w-4xl mx-auto">
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400"></i>
+                        <div class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400 text-sm sm:text-base"></i>
                         </div>
                         <input 
                             type="text" 
                             id="searchInput"
                             placeholder="Cari aspirasi berdasarkan nama siswa..." 
-                            class="w-full pl-12 pr-12 py-4 rounded-2xl border border-gray-300 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm transition-all duration-300"
+                            class="w-full pl-9 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-gray-300 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm transition-all duration-300 text-sm sm:text-base"
                             autocomplete="off"
                             value="{{ request()->search ?? '' }}"
                         >
-                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                        <div class="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center">
                             <button 
                                 id="clearSearch"
                                 class="text-gray-400 hover:text-gray-600 {{ request()->search ? '' : 'hidden' }}"
                                 title="Hapus pencarian"
                             >
-                                <i class="fas fa-times"></i>
+                                <i class="fas fa-times text-xs sm:text-sm"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="mt-3 text-sm text-gray-500 flex items-center">
-                        <i class="fas fa-info-circle mr-2"></i>
-                        <span>Tekan Enter untuk mencari atau ketik minimal 3 karakter untuk pencarian otomatis</span>
+                    <div class="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500 flex items-center">
+                        <i class="fas fa-info-circle mr-1 sm:mr-2"></i>
+                        <span>Tekan Enter untuk mencari atau ketik minimal 3 karakter</span>
                     </div>
                 </div>
             </div>
 
             <!-- Search Results Indicator -->
-            <div id="searchResultsIndicator" class="{{ request()->search ? '' : 'hidden' }} mb-6">
-                <div class="flex items-center justify-between bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-4 border border-primary-100">
+            <div id="searchResultsIndicator" class="{{ request()->search ? '' : 'hidden' }} mb-4 sm:mb-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-3 sm:p-4 border border-primary-100 gap-3 sm:gap-0">
                     <div class="flex items-center">
-                        <i class="fas fa-filter text-primary-500 mr-3"></i>
+                        <i class="fas fa-filter text-primary-500 mr-2 sm:mr-3 text-sm sm:text-base"></i>
                         <div>
-                            <p class="font-semibold text-primary-700">Hasil Pencarian</p>
-                            <p class="text-sm text-gray-600" id="searchQueryText">{{ request()->search ? 'Pencarian: "' . request()->search . '"' : '' }}</p>
+                            <p class="font-semibold text-primary-700 text-sm sm:text-base">Hasil Pencarian</p>
+                            <p class="text-xs sm:text-sm text-gray-600" id="searchQueryText">{{ request()->search ? 'Pencarian: "' . request()->search . '"' : '' }}</p>
                         </div>
                     </div>
                     <button 
                         id="clearSearchResults" 
-                        class="flex items-center px-4 py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 transition duration-200"
+                        class="flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 transition duration-200 text-xs sm:text-sm"
                     >
-                        <i class="fas fa-times mr-2"></i>
+                        <i class="fas fa-times mr-1 sm:mr-2"></i>
                         Hapus Filter
                     </button>
                 </div>
             </div>
 
             <!-- Loading Spinner -->
-            <div id="loadingSpinner" class="hidden flex justify-center items-center py-12">
+            <div id="loadingSpinner" class="hidden flex justify-center items-center py-8 sm:py-12">
                 <div class="text-center">
-                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500 mb-4"></div>
-                    <p class="text-gray-600">Memuat hasil pencarian...</p>
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-t-2 border-b-2 border-primary-500 mb-3 sm:mb-4"></div>
+                    <p class="text-xs sm:text-sm text-gray-600">Memuat hasil pencarian...</p>
                 </div>
             </div>
 
             <!-- Aspirasi Cards Grid -->
             <div id="aspirasiContainer">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12" id="aspirasiGrid">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12" id="aspirasiGrid">
                     @forelse($aspirasis as $aspirasi)
                     @php
                         // Potong teks untuk preview
                         $aspirasiText = $aspirasi->pengaduan->keterangan;
                         $words = str_word_count($aspirasiText, 1);
-                        $shortText = implode(' ', array_slice($words, 0, 6));
+                        $shortText = implode(' ', array_slice($words, 0, 5));
                         
                         // Permission untuk feedback
                         $canViewFeedback = false;
@@ -603,56 +744,56 @@
                     @endphp
                     
                     <!-- Aspirasi Card -->
-                    <div class="card-hover bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden animate-slide-in {{ $isDitolak ? 'card-ditolak' : '' }}"
+                    <div class="card-hover bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-gray-100 overflow-hidden animate-slide-in {{ $isDitolak ? 'card-ditolak' : '' }}"
                          data-aspirasi-id="{{ $aspirasi->id_aspirasi }}"
                          data-status="{{ $status }}"
                          data-owner="{{ $isOwner ? 'true' : 'false' }}">
                         <!-- Card Header -->
-                        <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                            <div class="flex justify-between items-start mb-4">
+                        <div class="p-4 sm:p-5 md:p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                            <div class="flex flex-col xs:flex-row justify-between items-start gap-3 mb-3 sm:mb-4">
                                 <div class="flex items-center">
-                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-user text-primary-600"></i>
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center mr-2 sm:mr-3 md:mr-4">
+                                        <i class="fas fa-user text-primary-600 text-xs sm:text-sm md:text-base"></i>
                                     </div>
                                     <div>
-                                        <h3 class="font-bold text-lg text-gray-800">
+                                        <h3 class="font-bold text-sm sm:text-base md:text-lg text-gray-800">
                                             {{ $aspirasi->pengaduan->siswa->nama ?? 'User' }}
                                         </h3>
-                                        <p class="text-sm text-gray-500 mt-0.5 flex items-center">
-                                            <i class="fas fa-calendar-alt mr-2 text-primary-500"></i>
+                                        <p class="text-[10px] sm:text-xs md:text-sm text-gray-500 mt-0.5 flex items-center">
+                                            <i class="fas fa-calendar-alt mr-1 sm:mr-2 text-primary-500 text-[8px] sm:text-xs"></i>
                                             {{ $aspirasi->created_at->format('d M Y • H:i') }}
                                         </p>
                                     </div>
                                 </div>
                                 
                                 <span class="status-badge {{ $statusInfo['class'] }}">
-                                    <i class="fas {{ $statusInfo['icon'] }}"></i>
+                                    <i class="fas {{ $statusInfo['icon'] }} text-[8px] sm:text-xs"></i>
                                     {{ $statusInfo['text'] }}
                                 </span>
                             </div>
                             
                             <!-- Preview Text -->
-                            <p class="text-gray-600 leading-relaxed">
-                                {{ $shortText }}{{ count($words) > 6 ? '...' : '' }}
+                            <p class="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">
+                                {{ $shortText }}{{ count($words) > 5 ? '...' : '' }}
                             </p>
                             
                             <!-- Show More Button -->
-                            <div class="mt-4">
+                            <div class="mt-2 sm:mt-3 md:mt-4">
                                 @auth
                                     <!-- Jika sudah login, tombol berfungsi normal -->
                                     <button 
-                                        class="show-more-btn text-left"
+                                        class="show-more-btn"
                                         data-aspirasi-id="{{ $aspirasi->id_aspirasi }}">
                                         <span id="btn-text-{{ $aspirasi->id_aspirasi }}">Lihat Detail</span>
-                                        <i class="fas fa-chevron-down text-xs ml-1" id="btn-icon-{{ $aspirasi->id_aspirasi }}"></i>
+                                        <i class="fas fa-chevron-down text-[8px] sm:text-xs ml-1" id="btn-icon-{{ $aspirasi->id_aspirasi }}"></i>
                                     </button>
                                 @else
                                     <!-- Jika belum login, arahkan ke modal login -->
                                     <button 
-                                        class="show-more-btn text-left open-login-modal">
+                                        class="show-more-btn open-login-modal">
                                         <span>Lihat Detail</span>
-                                        <i class="fas fa-lock text-xs ml-1"></i>
-                                        <span class="login-required-badge">(Login diperlukan)</span>
+                                        <i class="fas fa-lock text-[8px] sm:text-xs ml-1"></i>
+                                        <span class="login-required-badge">(Login)</span>
                                     </button>
                                 @endauth
                             </div>
@@ -661,41 +802,41 @@
                         <!-- Detail Section (Hanya bisa dilihat jika sudah login) -->
                         @auth
                         <div class="detail-section" id="detail-{{ $aspirasi->id_aspirasi }}">
-                            <div class="px-6 py-6">
+                            <div class="px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6">
                                 <!-- Pesan khusus untuk status ditolak yang bukan milik user -->
                                 @if($isDitolak && !$isOwner && auth()->user()->role != 'admin' && auth()->user()->role != 'kepsek')
-                                    <div class="warning-message mb-6">
+                                    <div class="warning-message">
                                         <div class="flex items-start">
-                                            <i class="fas fa-exclamation-triangle text-yellow-600 text-xl mr-3 mt-1"></i>
+                                            <i class="fas fa-exclamation-triangle text-yellow-600 text-sm sm:text-xl mr-2 sm:mr-3 mt-0.5"></i>
                                             <div>
-                                                <h4 class="font-semibold text-yellow-800 mb-2">Akses Terbatas</h4>
-                                                <p class="text-yellow-700 text-sm">
-                                                    Anda tidak dapat melihat detail dari aspirasi ini karena statusnya ditolak dan bukan milik Anda.
+                                                <h4 class="font-semibold text-yellow-800 text-xs sm:text-sm md:text-base mb-1 sm:mb-2">Akses Terbatas</h4>
+                                                <p class="text-yellow-700 text-[10px] sm:text-xs md:text-sm">
+                                                    Anda tidak dapat melihat detail aspirasi ini karena statusnya ditolak.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 @else
                                     <!-- Lokasi dan Kategori -->
-                                    <div class="flex flex-wrap gap-3 mb-6">
+                                    <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6">
                                         <span class="info-badge">
-                                            <i class="fas fa-map-marker-alt text-primary-500 mr-2"></i>
+                                            <i class="fas fa-map-marker-alt text-primary-500 mr-1 sm:mr-2 text-[8px] sm:text-xs"></i>
                                             {{ $aspirasi->pengaduan->lokasi }}
                                         </span>
                                         <span class="info-badge">
-                                            <i class="fas fa-tag text-secondary-500 mr-2"></i>
+                                            <i class="fas fa-tag text-secondary-500 mr-1 sm:mr-2 text-[8px] sm:text-xs"></i>
                                             {{ $aspirasi->pengaduan->kategori->nama_kategori }}
                                         </span>
                                     </div>
                                     
                                     <!-- Keterangan Lengkap -->
-                                    <div class="mb-6">
-                                        <h4 class="font-semibold text-gray-700 mb-3 flex items-center">
-                                            <i class="fas fa-comment-alt text-primary-500 mr-2"></i>
+                                    <div class="mb-4 sm:mb-5 md:mb-6">
+                                        <h4 class="font-semibold text-gray-700 text-xs sm:text-sm md:text-base mb-2 sm:mb-3 flex items-center">
+                                            <i class="fas fa-comment-alt text-primary-500 mr-1 sm:mr-2 text-xs sm:text-sm"></i>
                                             Detail Aspirasi
                                         </h4>
-                                        <div class="bg-gray-50 rounded-2xl p-5">
-                                            <p class="text-gray-700 leading-relaxed">
+                                        <div class="bg-gray-50 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5">
+                                            <p class="text-gray-700 text-xs sm:text-sm md:text-base leading-relaxed">
                                                 {{ $aspirasi->pengaduan->keterangan }}
                                             </p>
                                         </div>
@@ -703,66 +844,59 @@
                                     
                                     <!-- Feedback Section -->
                                     @if($aspirasi->feedbacks->count() > 0)
-                                    <div class="mt-8 pt-8 border-t border-gray-200">
-                                        <h4 class="font-semibold text-gray-700 mb-4 flex items-center">
-                                            <i class="fas fa-reply text-green-500 mr-2"></i>
+                                    <div class="mt-6 sm:mt-7 md:mt-8 pt-5 sm:pt-6 md:pt-8 border-t border-gray-200">
+                                        <h4 class="font-semibold text-gray-700 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 flex items-center">
+                                            <i class="fas fa-reply text-green-500 mr-1 sm:mr-2"></i>
                                             Feedback ({{ $aspirasi->feedbacks->count() }})
                                         </h4>
                                         
                                         @if($canViewFeedback)
                                             <!-- Bisa lihat feedback -->
-                                            <div class="space-y-4">
+                                            <div class="space-y-3 sm:space-y-4">
                                                 @foreach($aspirasi->feedbacks as $feedback)
                                                 @php
                                                     // Ambil nama user yang memberi feedback
-                                                    $namaPengirim = 'Staff Sekolah'; // Default
+                                                    $namaPengirim = 'Staff Sekolah';
                                                     $roleClass = 'admin-feedback';
                                                     $roleBadgeClass = 'role-admin';
                                                     $roleBadgeText = 'Admin';
                                                     $iconClass = 'fa-user-shield';
                                                     
-                                                    // Jika ada relasi user, ambil nama dari user yang memberi feedback
                                                     if ($feedback->user) {
                                                         $namaPengirim = $feedback->user->nama;
                                                         
-                                                        // Tentukan class berdasarkan role
                                                         if ($feedback->user->role === 'kepsek') {
-                                                            $roleClass = 'kepsek-feedback';
+                                                            $roleClass = 'admin-feedback';
                                                             $roleBadgeClass = 'role-kepsek';
-                                                            $roleBadgeText = 'Kepala Sekolah';
+                                                            $roleBadgeText = 'Kepsek';
                                                             $iconClass = 'fa-user-tie';
-                                                        } elseif ($feedback->user->role === 'admin') {
-                                                            $roleBadgeText = 'Admin';
-                                                            $iconClass = 'fa-user-shield';
                                                         }
                                                     }
                                                 @endphp
                                                 <div class="feedback-bubble {{ $roleClass }}">
-                                                    <div class="flex items-center mb-3">
-                                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-secondary-400 to-secondary-600 flex items-center justify-center text-white text-sm mr-3">
-                                                            <i class="fas {{ $iconClass }}"></i>
+                                                    <div class="flex items-start sm:items-center mb-2 sm:mb-3">
+                                                        <div class="feedback-avatar w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-secondary-400 to-secondary-600 flex items-center justify-center text-white mr-2 sm:mr-3">
+                                                            <i class="fas {{ $iconClass }} text-[0.5rem] sm:text-xs"></i>
                                                         </div>
-                                                        <div class="flex-1">
-                                                            <div class="flex items-center justify-between">
-                                                                <div>
-                                                                    <div class="flex items-center gap-2 mb-1">
-                                                                        <p class="font-semibold text-gray-800">
-                                                                            {{ $namaPengirim }}
-                                                                        </p>
-                                                                        <span class="{{ $roleBadgeClass }} role-badge">
-                                                                            <i class="fas {{ $iconClass }} text-xs"></i>
-                                                                            {{ $roleBadgeText }}
-                                                                        </span>
-                                                                    </div>
-                                                                    <p class="text-xs text-gray-500 mt-0.5">
-                                                                        <i class="fas fa-clock mr-1"></i>
-                                                                        {{ $feedback->created_at->format('d M Y H:i') }}
+                                                        <div class="flex-1 min-w-0">
+                                                            <div class="flex flex-col xs:flex-row xs:items-center justify-between gap-1">
+                                                                <div class="flex items-center gap-1 sm:gap-2 flex-wrap">
+                                                                    <p class="font-semibold text-gray-800 text-xs sm:text-sm truncate max-w-[100px] sm:max-w-none">
+                                                                        {{ $namaPengirim }}
                                                                     </p>
+                                                                    <span class="{{ $roleBadgeClass }} role-badge">
+                                                                        <i class="fas {{ $iconClass }} text-[0.4rem] sm:text-xs"></i>
+                                                                        {{ $roleBadgeText }}
+                                                                    </span>
                                                                 </div>
+                                                                <p class="text-[8px] sm:text-xs text-gray-500">
+                                                                    <i class="fas fa-clock mr-1"></i>
+                                                                    {{ $feedback->created_at->format('d M H:i') }}
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p class="text-gray-700">
+                                                    <p class="text-gray-700 text-xs sm:text-sm">
                                                         {{ $feedback->isi }}
                                                     </p>
                                                 </div>
@@ -770,16 +904,16 @@
                                             </div>
                                         @else
                                             <!-- Tidak bisa lihat feedback -->
-                                            <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 text-center border border-yellow-200">
+                                            <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 text-center border border-yellow-200">
                                                 <div class="flex flex-col items-center">
-                                                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-100 to-yellow-200 flex items-center justify-center mb-4">
-                                                        <i class="fas fa-lock text-yellow-600 text-xl"></i>
+                                                    <div class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-r from-yellow-100 to-yellow-200 flex items-center justify-center mb-2 sm:mb-3 md:mb-4">
+                                                        <i class="fas fa-lock text-yellow-600 text-sm sm:text-base md:text-xl"></i>
                                                     </div>
-                                                    <h5 class="font-semibold text-yellow-800 text-lg mb-2">
+                                                    <h5 class="font-semibold text-yellow-800 text-xs sm:text-sm md:text-base mb-1 sm:mb-2">
                                                         Akses Terbatas
                                                     </h5>
-                                                    <p class="text-yellow-700 text-sm mb-4">
-                                                        Hanya admin, kepala sekolah, dan pengirim aspirasi yang dapat melihat jawaban
+                                                    <p class="text-yellow-700 text-[10px] sm:text-xs md:text-sm">
+                                                        Hanya admin dan pengirim yang dapat melihat jawaban
                                                     </p>
                                                 </div>
                                             </div>
@@ -787,12 +921,12 @@
                                     </div>
                                     @else
                                         <!-- Belum ada feedback -->
-                                        <div class="mt-8 pt-8 border-t border-gray-200">
-                                            <div class="flex flex-col items-center text-center py-4">
-                                                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3">
-                                                    <i class="fas fa-comment-slash text-gray-400"></i>
+                                        <div class="mt-6 sm:mt-7 md:mt-8 pt-5 sm:pt-6 md:pt-8 border-t border-gray-200">
+                                            <div class="flex flex-col items-center text-center py-3 sm:py-4">
+                                                <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-gray-100 flex items-center justify-center mb-2 sm:mb-3">
+                                                    <i class="fas fa-comment-slash text-gray-400 text-xs sm:text-sm md:text-base"></i>
                                                 </div>
-                                                <p class="text-gray-500">
+                                                <p class="text-gray-500 text-xs sm:text-sm">
                                                     <i class="fas fa-info-circle mr-1"></i>
                                                     Belum ada jawaban dari admin
                                                 </p>
@@ -806,29 +940,29 @@
                     </div>
                     @empty
                     <!-- No Results Message -->
-                    <div class="col-span-2 text-center py-16">
-                        <div class="max-w-md mx-auto">
-                            <div class="w-24 h-24 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center mx-auto mb-6">
-                                <i class="fas fa-inbox text-4xl text-primary-500"></i>
+                    <div class="col-span-1 lg:col-span-2 text-center py-10 sm:py-12 md:py-16">
+                        <div class="max-w-md mx-auto px-4">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center mx-auto mb-4 sm:mb-5 md:mb-6">
+                                <i class="fas fa-inbox text-2xl sm:text-3xl md:text-4xl text-primary-500"></i>
                             </div>
-                            <h3 class="text-2xl font-semibold text-gray-700 mb-3">
+                            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700 mb-2 sm:mb-3">
                                 @if(request()->search && request()->search != '')
                                     Tidak ditemukan aspirasi untuk "{{ request()->search }}"
                                 @else
                                     Belum ada aspirasi
                                 @endif
                             </h3>
-                            <p class="text-gray-600 mb-6">
+                            <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-5 md:mb-6">
                                 @if(request()->search && request()->search != '')
                                     Coba gunakan kata kunci lain atau hapus filter pencarian
                                 @else
-                                    Jadilah yang pertama mengirimkan aspirasi untuk perbaikan sekolah!
+                                    Jadilah yang pertama mengirimkan aspirasi!
                                 @endif
                             </p>
                             @if(!(request()->search && request()->search != ''))
                             <a href="{{ route('home') }}#form-pengaduan" 
-                               class="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg">
-                                <i class="fas fa-plus-circle mr-2"></i>
+                               class="inline-flex items-center px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg text-xs sm:text-sm md:text-base">
+                                <i class="fas fa-plus-circle mr-1 sm:mr-2"></i>
                                 Buat Pengaduan Baru
                             </a>
                             @endif
@@ -839,26 +973,26 @@
 
                 <!-- Pagination with Green Theme -->
                 @if($aspirasis->hasPages())
-                <div class="flex flex-col items-center justify-center mt-12 space-y-4" id="paginationContainer">
+                <div class="flex flex-col items-center justify-center mt-8 sm:mt-10 md:mt-12 space-y-3 sm:space-y-4" id="paginationContainer">
                     <!-- Pagination Info -->
-                    <div class="text-gray-600 text-sm">
+                    <div class="text-gray-600 text-xs sm:text-sm">
                         Halaman <span class="font-semibold text-green-600">{{ $aspirasis->currentPage() }}</span> dari 
                         <span class="font-semibold text-green-600">{{ $aspirasis->lastPage() }}</span>
                     </div>
                     
                     <!-- Pagination Controls -->
-                    <nav class="flex items-center space-x-2">
+                    <nav class="flex items-center space-x-1 sm:space-x-2">
                         <!-- Previous Button -->
                         @if($aspirasis->onFirstPage())
                         <span class="pagination-item disabled">
                             <span class="pagination-link">
-                                <i class="fas fa-chevron-left mr-1 text-gray-400"></i>
+                                <i class="fas fa-chevron-left text-gray-400 text-xs sm:text-sm"></i>
                             </span>
                         </span>
                         @else
                         <a href="{{ $aspirasis->previousPageUrl() }}" class="pagination-item">
                             <span class="pagination-link pagination-arrow">
-                                <i class="fas fa-chevron-left mr-1"></i>
+                                <i class="fas fa-chevron-left text-xs sm:text-sm"></i>
                             </span>
                         </a>
                         @endif
@@ -880,11 +1014,11 @@
                         
                         @if($start > 1)
                         <a href="{{ $aspirasis->url(1) }}" class="pagination-item">
-                            <span class="pagination-link">1</span>
+                            <span class="pagination-link text-xs sm:text-sm">1</span>
                         </a>
                         @if($start > 2)
                         <span class="pagination-item disabled">
-                            <span class="pagination-link">...</span>
+                            <span class="pagination-link text-xs sm:text-sm">...</span>
                         </span>
                         @endif
                         @endif
@@ -892,11 +1026,11 @@
                         @for($i = $start; $i <= $end; $i++)
                         @if($i == $current)
                         <span class="pagination-item active">
-                            <span class="pagination-link">{{ $i }}</span>
+                            <span class="pagination-link text-xs sm:text-sm">{{ $i }}</span>
                         </span>
                         @else
                         <a href="{{ $aspirasis->url($i) }}" class="pagination-item">
-                            <span class="pagination-link">{{ $i }}</span>
+                            <span class="pagination-link text-xs sm:text-sm">{{ $i }}</span>
                         </a>
                         @endif
                         @endfor
@@ -904,25 +1038,25 @@
                         @if($end < $last)
                         @if($end < $last - 1)
                         <span class="pagination-item disabled">
-                            <span class="pagination-link">...</span>
+                            <span class="pagination-link text-xs sm:text-sm">...</span>
                         </span>
                         @endif
                         <a href="{{ $aspirasis->url($last) }}" class="pagination-item">
-                            <span class="pagination-link">{{ $last }}</span>
+                            <span class="pagination-link text-xs sm:text-sm">{{ $last }}</span>
                         </a>
                         @endif
                         
                         <!-- Next Button -->
                         @if($aspirasis->hasMorePages())
-                        <a href="{{ $aspirasis->nextPageUrl() }}" class="pagination-item"> <!-- PERBAIKAN DI SINI: $aspirasi-> menjadi $aspirasis-> -->
+                        <a href="{{ $aspirasis->nextPageUrl() }}" class="pagination-item">
                             <span class="pagination-link pagination-arrow">
-                                <i class="fas fa-chevron-right ml-1"></i>
+                                <i class="fas fa-chevron-right text-xs sm:text-sm"></i>
                             </span>
                         </a>
                         @else
                         <span class="pagination-item disabled">
                             <span class="pagination-link">
-                                <i class="fas fa-chevron-right ml-1 text-gray-400"></i>
+                                <i class="fas fa-chevron-right text-gray-400 text-xs sm:text-sm"></i>
                             </span>
                         </span>
                         @endif
@@ -933,10 +1067,10 @@
         </div>
     </main>
 
-    <footer class="bg-gradient-to-r from-gray-900 to-dark text-white py-5">
-        <div class="border-t border-gray-800">
+    <footer class="bg-gradient-to-r from-gray-900 to-dark text-white py-3 sm:py-4 md:py-5">
+        <div class="border-t border-gray-800 pt-2 sm:pt-3">
             <div class="text-center">
-                <p class="text-white text-xs">
+                <p class="text-white text-[8px] sm:text-[10px] md:text-xs">
                     © SUARAKITA - Sistem Manajemen Aduan Sekolah. Semua hak dilindungi.
                 </p>
             </div>
@@ -1013,28 +1147,25 @@
         }
         
         // User menu toggle
-        const userMenuBtn = document.getElementById('userMenuBtn');
-        const userMenu = document.getElementById('userMenu');
-        
-        if (userMenuBtn && userMenu) {
-            userMenuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                userMenu.classList.toggle('hidden');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function() {
-                userMenu.classList.add('hidden');
-            });
-            
-            // Prevent closing when clicking inside menu
-            userMenu.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-        }
-        
-        // Live Search Functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const userMenu = document.getElementById('userMenu');
+            
+            if (userMenuBtn && userMenu) {
+                userMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userMenu.classList.toggle('hidden');
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuBtn.contains(e.target) && !userMenu.contains(e.target)) {
+                        userMenu.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Live Search Functionality
             const searchInput = document.getElementById('searchInput');
             const clearSearchBtn = document.getElementById('clearSearch');
             const clearSearchResultsBtn = document.getElementById('clearSearchResults');
@@ -1081,17 +1212,14 @@
                 })
                 .then(response => response.text())
                 .then(html => {
-                    // Parse HTML response
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
                     
-                    // Update grid dengan hasil pencarian
                     const newGrid = doc.getElementById('aspirasiGrid');
                     if (newGrid) {
                         aspirasiGrid.innerHTML = newGrid.innerHTML;
                     }
                     
-                    // Update pagination
                     const newPagination = doc.getElementById('paginationContainer');
                     if (newPagination) {
                         paginationContainer.innerHTML = newPagination.innerHTML;
@@ -1099,27 +1227,14 @@
                         paginationContainer.innerHTML = '';
                     }
                     
-                    // Highlight teks pencarian di nama siswa
                     if (searchTerm.trim()) {
                         highlightSearchResults(searchTerm);
                     }
                     
-                    // Re-inisialisasi event listeners untuk detail cards
                     reinitializeAllEventListeners();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    aspirasiGrid.innerHTML = `
-                        <div class="col-span-2 text-center py-16">
-                            <div class="max-w-md mx-auto">
-                                <div class="w-24 h-24 rounded-full bg-gradient-to-r from-red-100 to-red-200 flex items-center justify-center mx-auto mb-6">
-                                    <i class="fas fa-exclamation-triangle text-4xl text-red-500"></i>
-                                </div>
-                                <h3 class="text-2xl font-semibold text-gray-700 mb-3">Terjadi Kesalahan</h3>
-                                <p class="text-gray-600 mb-6">Gagal memuat hasil pencarian. Silakan coba lagi.</p>
-                            </div>
-                        </div>
-                    `;
                 })
                 .finally(() => {
                     isLoading = false;
@@ -1130,7 +1245,7 @@
             // Fungsi untuk highlight hasil pencarian
             function highlightSearchResults(searchTerm) {
                 const searchLower = searchTerm.toLowerCase();
-                const namaElements = document.querySelectorAll('h3.font-bold.text-lg');
+                const namaElements = document.querySelectorAll('h3.font-bold');
                 
                 namaElements.forEach(element => {
                     const nama = element.textContent.toLowerCase();
@@ -1142,42 +1257,42 @@
             }
             
             // Event listener untuk input pencarian
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.trim();
-                
-                // Clear timeout sebelumnya
-                clearTimeout(searchTimeout);
-                
-                // Tampilkan tombol clear jika ada teks
-                if (searchTerm !== '') {
-                    clearSearchBtn.classList.remove('hidden');
-                } else {
-                    clearSearchBtn.classList.add('hidden');
-                }
-                
-                // Lakukan pencarian otomatis setelah 500ms jika teks >= 3 karakter
-                if (searchTerm.length >= 3 || searchTerm.length === 0) {
-                    searchTimeout = setTimeout(() => {
-                        performSearch(searchTerm);
-                    }, 500);
-                }
-            });
-            
-            // Enter untuk immediate search
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.trim();
+                    
                     clearTimeout(searchTimeout);
-                    performSearch(this.value.trim());
-                }
-            });
+                    
+                    if (searchTerm !== '') {
+                        clearSearchBtn.classList.remove('hidden');
+                    } else {
+                        clearSearchBtn.classList.add('hidden');
+                    }
+                    
+                    if (searchTerm.length >= 3 || searchTerm.length === 0) {
+                        searchTimeout = setTimeout(() => {
+                            performSearch(searchTerm);
+                        }, 500);
+                    }
+                });
+                
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        clearTimeout(searchTimeout);
+                        performSearch(this.value.trim());
+                    }
+                });
+            }
             
             // Tombol clear search
-            clearSearchBtn.addEventListener('click', function() {
-                searchInput.value = '';
-                clearSearchBtn.classList.add('hidden');
-                performSearch('');
-            });
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    clearSearchBtn.classList.add('hidden');
+                    performSearch('');
+                });
+            }
             
             // Tombol clear search results
             if (clearSearchResultsBtn) {
@@ -1191,9 +1306,7 @@
             
             // Event delegation untuk tombol "Lihat Detail"
             function initializeEventDelegation() {
-                // Event delegation untuk tombol lihat detail (sudah login)
                 document.addEventListener('click', function(e) {
-                    // Tombol lihat detail untuk user yang sudah login
                     const detailBtn = e.target.closest('.show-more-btn:not(.open-login-modal)');
                     if (detailBtn) {
                         e.preventDefault();
@@ -1205,7 +1318,6 @@
                         }
                     }
                     
-                    // Tombol untuk user yang belum login
                     const loginBtn = e.target.closest('.show-more-btn.open-login-modal');
                     if (loginBtn) {
                         e.preventDefault();
@@ -1214,12 +1326,11 @@
                     }
                 });
                 
-                // Event delegation untuk pagination links
                 document.addEventListener('click', function(e) {
-                    const paginationLink = e.target.closest('.pagination-link');
-                    if (paginationLink && paginationLink.parentElement.tagName === 'A') {
+                    const paginationLink = e.target.closest('.pagination-item a');
+                    if (paginationLink) {
                         e.preventDefault();
-                        const href = paginationLink.parentElement.getAttribute('href');
+                        const href = paginationLink.getAttribute('href');
                         if (href) {
                             window.location.href = href;
                         }
@@ -1229,9 +1340,6 @@
             
             // Inisialisasi event delegation
             initializeEventDelegation();
-            
-            // Initialize page
-            console.log('Page loaded successfully');
             
             // Hide all detail sections by default
             document.querySelectorAll('.detail-section').forEach(section => {
@@ -1254,34 +1362,42 @@
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
-                            top: targetElement.offsetTop - 100,
+                            top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
                     }
                 });
             });
             
-            // Highlight pencarian awal jika ada
-            @if(request()->search && request()->search != '')
-                setTimeout(() => {
-                    highlightSearchResults('{{ request()->search }}');
-                }, 100);
-            @endif
-            
-            // Filter untuk menyembunyikan aspirasi ditolak yang bukan milik user
-            filterDitolakAspirasi();
-        });
-
-        // Auto-hide success alert
-        document.addEventListener('DOMContentLoaded', function () {
+            // Auto-hide success alert
             const alert = document.getElementById('success-alert');
             if (alert) {
                 setTimeout(() => {
                     alert.classList.add('opacity-0', '-translate-y-4');
                     setTimeout(() => alert.remove(), 500);
-                }, 3000); // 3 detik
+                }, 3000);
             }
         });
+
+        // Fungsi untuk inisialisasi ulang semua event listeners
+        function reinitializeAllEventListeners() {
+            console.log('Reinitializing event listeners...');
+            
+            document.querySelectorAll('.detail-section').forEach(section => {
+                section.classList.remove('show');
+            });
+            
+            openDetailId = null;
+            
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            filterDitolakAspirasi();
+            
+            console.log('Event listeners reinitialized successfully');
+        }
         
         // Fungsi untuk filter aspirasi ditolak
         function filterDitolakAspirasi() {
@@ -1290,35 +1406,10 @@
             cards.forEach(card => {
                 const isOwner = card.getAttribute('data-owner') === 'true';
                 
-                // Jika bukan pemilik, sembunyikan card
                 if (!isOwner) {
                     card.style.display = 'none';
                 }
             });
-        }
-        
-        // Fungsi untuk inisialisasi ulang semua event listeners
-        function reinitializeAllEventListeners() {
-            console.log('Reinitializing event listeners...');
-            
-            // Hide all detail sections by default
-            document.querySelectorAll('.detail-section').forEach(section => {
-                section.classList.remove('show');
-            });
-            
-            // Reset open detail state
-            openDetailId = null;
-            
-            // Add animation delay to new cards
-            const cards = document.querySelectorAll('.card-hover');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
-            
-            // Filter aspirasi ditolak untuk user non-pemilik
-            filterDitolakAspirasi();
-            
-            console.log('Event listeners reinitialized successfully');
         }
     </script>
 </body>

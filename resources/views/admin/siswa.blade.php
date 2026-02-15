@@ -340,9 +340,15 @@
                         <!-- NISN - Text Field -->
                         <div id="nisn-input-container">
                             <label for="nisn" class="block text-sm font-medium text-gray-700 mb-1">NISN</label>
-                            <input type="number" id="nisn" name="nisn" required maxlength="10" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                                   placeholder="Masukkan 10 digit NISN">
+                            <input type="text"
+                                id="nisn"
+                                name="nisn"
+                                required
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                inputmode="numeric"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent font-mono"
+                                placeholder="NISN harus berisi 10 digit angka">
                             <div id="nisn-error" class="validation-error"></div>
                         </div>
                         
@@ -1463,7 +1469,6 @@
         }
     }
     
-    // ========== VALIDASI FORM ==========
     function validateNISN(nisn) {
         if (!nisn) {
             showFieldError('nisn', 'NISN wajib diisi');
@@ -1475,8 +1480,8 @@
             return false;
         }
         
-        if (!/^\d+$/.test(nisn)) {
-            showFieldError('nisn', 'NISN hanya boleh mengandung angka (0-9)');
+        if (!/^[0-9]{10}$/.test(nisn)) {  // lebih ketat: hanya digit 0-9 tepat 10
+            showFieldError('nisn', 'NISN hanya boleh angka 0-9 (boleh diawali 0)');
             return false;
         }
         

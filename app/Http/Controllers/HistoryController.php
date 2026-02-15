@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pengaduan; // GANTI DARI Aspirasi ke Pengaduan
+use App\Models\Pengaduan;
 use App\Models\Feedback;
 use Illuminate\Support\Facades\Storage;
 
